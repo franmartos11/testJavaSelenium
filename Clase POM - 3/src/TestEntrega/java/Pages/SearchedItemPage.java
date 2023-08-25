@@ -6,15 +6,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchedItemPage extends BasePage{
 
-    private By item = By.xpath("//a[@href='http://opencart.abstracta.us:80/index.php?route=product/product&product_id=40&search=iphone' and contains(text(), 'iPhone')]")
+    private By itemCart = By.xpath("//div[@class='button-group']/button[1]")
 
     public SearchedItemPage(WebDriver driver, WebDriverWait wait) {
         super(driver, null);
     }
 
-    public void clickItem() throws InterruptedException {
-        this.clickear(item);
+    public void clickAddItemCart() throws InterruptedException {
+        this.clickear(itemCart);
         Thread.sleep(1000);
     }
-
 }
