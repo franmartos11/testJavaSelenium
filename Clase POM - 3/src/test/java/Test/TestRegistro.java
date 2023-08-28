@@ -32,21 +32,22 @@ public class TestRegistro {
 
     static ExtentSparkReporter info = new ExtentSparkReporter("target/REPORTES_BUSQUEDA.html");
     static ExtentReports extent;
-    @BeforeAll
 
+    @BeforeAll
     public static void crearReporte() {
-            extent = ExtentFactory.getInstance();
-            extent.attachReporter(info);
-            }
+        extent = ExtentFactory.getInstance();
+        extent.attachReporter(info);
+    }
 
     @BeforeEach
     public void setUp() throws InterruptedException {
-            driver = new ChromeDriver();
-            wait = new WebDriverWait(driver, Duration.ofMillis(2000));
-            HomePage homePage = new HomePage(driver, wait);
-            homePage.setup();
-            homePage.url("https://opencart.abstracta.us/index.php?route=common/home");
-            }
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofMillis(2000));
+        HomePage homePage = new HomePage(driver, wait);
+        homePage.setup();
+        homePage.url("https://opencart.abstracta.us/index.php?route=common/home");
+    }
+
     @Test
     @Tag("Seleccion_Registro")
     public void succesOnRegister() throws InterruptedException {
@@ -64,7 +65,7 @@ public class TestRegistro {
 
         registerPage.writeName("Franco");
         registerPage.writeLastName("Mertens");
-        registerPage.writeEmail("prueba000074@gmail.com");
+        registerPage.writeEmail("prueba100057@gmail.com");
         registerPage.writePhoneNumber("3513896544");
         registerPage.writePassword("123456");
         registerPage.writeConfirmPass("123456");
@@ -73,37 +74,21 @@ public class TestRegistro {
         registerPage.clickFinishRegister();
 
         test.log(Status.PASS, "Ingreso todos los datos del Registro");
-    }
 
-    @Test
-    @Tag("Continuar_de_creacion_de_cuenta_a_Busqueda_de_producto")
-    public void continueToSearch() throws InterruptedException {
-        ExtentTest test = extent.createTest("Continuar a busqueda de producto");
-        test.log(Status.INFO, "Comienza el Test");
-        AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver, wait);
+
+
+    AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver, wait);
         accountCreatedPage.clickBtnContinue();
-        test.log(Status.PASS, "Logro pasar a busqueda de productos");
+        test.log(Status.PASS,"Logro pasar a busqueda de productos");
 
-    }
 
-    @Test
-    @Tag("Busqueda_de_producto")
-    public void productSearch() throws InterruptedException {
-        ExtentTest test = extent.createTest("Busqueda de producto");
-        test.log(Status.INFO, "Comienza el Test");
         SearchPage searchItemPage = new SearchPage(driver, wait);
         searchItemPage.writeSearch("iphone");
         searchItemPage.selectSearchBtn();
         test.log(Status.PASS, "Logro buscar producto iphone ");
-    }
 
-    @Test
-    @Tag("Agregar_item_al_carro_de_compras")
-    public void addProductToCart() throws InterruptedException {
-        ExtentTest test = extent.createTest("Agregar item carro de compras");
-        test.log(Status.INFO, "Comienza el Test");
-        SearchedItemPage searchItemPage = new SearchedItemPage(driver, wait);
-        searchItemPage.clickAddItemCart();
+        SearchedItemPage searchedItemPage = new SearchedItemPage(driver, wait);
+        searchedItemPage.clickAddItemCart();
         test.log(Status.PASS, "Logro agregar producto al carro de compras");
     }
 

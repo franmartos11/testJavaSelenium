@@ -19,7 +19,7 @@ public class SearchPage extends BasePage {
           Thread.sleep(500);
      }
      public void selectSearchBtn() throws InterruptedException{
-          this.clickear(searchBar);
+          this.clickear(searchBtn);
           Thread.sleep(1000);
      }
 

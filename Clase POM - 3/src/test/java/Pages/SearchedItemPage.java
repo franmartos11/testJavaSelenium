@@ -9,7 +9,7 @@ public class SearchedItemPage extends BasePage{
     private By itemCart = By.xpath("//div[@class='button-group']/button[1]");
 
     public SearchedItemPage(WebDriver driver, WebDriverWait wait) {
-        super(driver, null);
+        super(driver, wait);
     }
 
     public void clickAddItemCart() throws InterruptedException {
