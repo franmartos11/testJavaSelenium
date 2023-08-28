@@ -5,58 +5,57 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterPage extends BasePage {
-    private By nombre = By.id("firstName");
-    private By apellido = By.id("lastName");
-    private By email = By.id("email");
-    private By password = By.id("password");
-    private By repassword = By.id("repassword");
-    private By btnRegistrarse = By.className("btn-primario");//*[@id="root"]/main/div/form/button
-    private By btnCrearCuenta = By.linkText("Crear cuenta");
-    private By gracias = By.className("txt-gracias");
-    private By exito = By.className("txt-exito");
+    private By name = By.id("input-firstname");
+    private By lastName = By.id("input-lastname");
+    private By email = By.id("input-email");
+    private By phoneNumber = By.id("input-telephone");
+    private By password = By.id("input-password");
+    private By passwordConfirm = By.id("input-confirm");
+    private By subNewsLetter = By.xpath("//label[@class='radio-inline']//input[@type='radio' and @name='newsletter' and @value='0']");
+    private By btnAgreePolicy = By.xpath("//input[@type='checkbox' and @name='agree' and @value='1']");
+    private By btnContinue = By.xpath("//input[@type='submit' and @value='Continue' and contains(@class, 'btn-primary')]");
+
+
 
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    public void clickCrearCuenta() throws InterruptedException {
-        this.clickear(btnCrearCuenta);
+
+    public void writeName(String nam) throws InterruptedException {
+        this.sendText(nam, name);
     }
 
-    public void escribirNombre(String name) throws InterruptedException {
-        this.sendText(name, nombre);
+    public void writeLastName(String last) throws InterruptedException {
+        this.sendText(last, lastName);
     }
 
-    public void escribirApellido(String name) throws InterruptedException {
-        this.sendText(name, apellido);
-    }
-
-    public void escribirCorreo(String mail) throws InterruptedException {
+    public void writeEmail(String mail) throws InterruptedException {
         this.sendText(mail, email);
     }
+    public void writePhoneNumber(String numb) throws InterruptedException {
+        this.sendText(numb, phoneNumber);
+    }
 
-    public void escribirContraseña(String pass) throws InterruptedException {
+    public void writePassword(String pass) throws InterruptedException {
         this.sendText(pass, password);
     }
 
-    public void escribirRepetirContraseña(String pass) throws InterruptedException {
-        this.sendText(pass, repassword);
+    public void writeConfirmPass(String pass) throws InterruptedException {
+        this.sendText(pass, passwordConfirm);
     }
 
-    public void clickRegistrarse() throws InterruptedException {
-        this.clickear(btnRegistrarse);
+    public void clickDenySubscription() throws InterruptedException {
+        this.clickear(subNewsLetter);
+        Thread.sleep(1000);
+    }
+    public void clickAcceptPolicy() throws InterruptedException {
+        this.clickear(btnAgreePolicy);
+        Thread.sleep(1000);
+    }
+    public void clickFinishRegister() throws InterruptedException {
+        this.clickear(btnContinue);
         Thread.sleep(1000);
     }
 
-    public String cuentaCreadaGracias() throws InterruptedException {
-        String res = this.getText(gracias);
-        System.out.println("Resultado Card value: " + res);
-        return res;
-    }
-
-    public String cuentaCreadaExito() throws InterruptedException {
-        String res = this.getText(exito);
-        System.out.println("Resultado Card value: " + res);
-        return res;
-    }
 }
