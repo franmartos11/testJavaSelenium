@@ -65,7 +65,7 @@ public class TestRegistro {
 
         registerPage.writeName("Franco");
         registerPage.writeLastName("Mertens");
-        registerPage.writeEmail("prueba100057@gmail.com");
+        registerPage.writeEmail("prueba6568956@gmail.com");
         registerPage.writePhoneNumber("3513896544");
         registerPage.writePassword("123456");
         registerPage.writeConfirmPass("123456");
