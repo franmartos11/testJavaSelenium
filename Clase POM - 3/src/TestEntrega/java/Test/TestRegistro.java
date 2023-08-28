@@ -10,11 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+public class TestRegistro {
+
+    public WebDriver driver;
+    public WebDriverWait wait;
     @BeforeAll
     public static void crearReporte() {
             extent = ExtentFactory.getInstance();
@@ -49,14 +51,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
             test.log(Status.INFO, "Comienza el Test");
             RegisterPage registerPage = new RegisterPage(driver, wait);
 
-            homePage.clickBtnMiCuenta();
-            test.log(Status.PASS, "Seleccion de cuenta exitosa");
+            registerPage.writeName("Franco");
+            registerPage.writeLastName("Mertens");
+            registerPage.writeEmail("prueba00004@gmail.com");
+            registerPage.writePassword("123456");
+            registerPage.writeConfirmPass("123456");
+            test.log(Status.PASS, "Ingreso todos los datos del Registro");
+    }
 
-            homePage.clickBtnRegister();
-            test.log(Status.PASS, "Ingresar a seccion de registro");
+    @AfterEach
+    public void cerrar() {
+            RegisterPage registerPage = new RegisterPage(driver, wait);
+            registerPage.close();
+            extent.flush();
             }
 
-
+}
 
 
 
