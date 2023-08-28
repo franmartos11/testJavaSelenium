@@ -13,6 +13,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import Pages.RegisterPage;
+import Pages.HomePage;
+import Pages.AccountCreatedPage;
+import Pages.SearchPage;
+import Pages.SearchedItemPage;
+
+
 public class TestRegistro {
 
     public WebDriver driver;
@@ -27,9 +34,9 @@ public class TestRegistro {
     public void setUp() throws InterruptedException {
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, Duration.ofMillis(2000));
-            RegisterPage registerPage = new RegisterPage(driver, wait);
-            registerPage.setup();
-            registerPage.url("https://opencart.abstracta.us/index.php?route=common/home");
+            HomePage homePage = new HomePage(driver, wait);
+            homePage.setup();
+            homePage.url("https://opencart.abstracta.us/index.php?route=common/home");
             }
     @Test
     @tag("Seleccion Registro")
@@ -59,7 +66,42 @@ public class TestRegistro {
             test.log(Status.PASS, "Ingreso todos los datos del Registro");
     }
 
-    @AfterEach
+    @Test
+    @tag("Continuar de creacion de cuenta a Busqueda de producto")
+    public void succesfullRegister() throws InterruptedException {
+        ExtentTest test = extent.createTest("Continuar a busqueda de producto");
+        test.log(Status.INFO, "Comienza el Test");
+        AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver, wait);
+        clickBtnContinue();
+        test.log(Status.PASS, "Logro pasar a busqueda de productos");
+
+    }
+
+    @Test
+    @tag("Busqueda de producto")
+    public void succesfullRegister() throws InterruptedException {
+        ExtentTest test = extent.createTest("Busqueda de producto");
+        test.log(Status.INFO, "Comienza el Test");
+        SearchItemPage searchItemPage = new SearchItemPage(driver, wait);
+        writeSearch("iphone");
+        selectSearchBtn();
+        test.log(Status.PASS, "Logro buscar producto iphone ");
+    }
+
+    @Test
+    @tag("Agregar item al carro de compras")
+    public void succesfullRegister() throws InterruptedException {
+        ExtentTest test = extent.createTest("Agregar item carro de compras");
+        test.log(Status.INFO, "Comienza el Test");
+        SearchItemPage searchItemPage = new SearchItemPage(driver, wait);
+        clickAddItemCart()
+        test.log(Status.PASS, "Logro agregar producto al carro de compras");
+    }
+
+
+
+
+        @AfterEach
     public void cerrar() {
             RegisterPage registerPage = new RegisterPage(driver, wait);
             registerPage.close();

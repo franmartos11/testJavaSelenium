@@ -9,6 +9,7 @@ public class SearchPage extends BasePage {
 
      private By searchBar = By.xpath("//div[@id='search']//input[@name='search']")
 
+     private By searchBtn = By.xpath("//button[@class='btn btn-default btn-lg']")
      public SearchPage(WebDriver driver, WebDriverWait wait) {
           super(driver, null);
      }
@@ -16,6 +17,10 @@ public class SearchPage extends BasePage {
      public void writeSearch(String item) throws InterruptedException {
           this.sendText(item, searchBar);
           Thread.sleep(500);
-          this.sendKey(Keys.ENTER, searchBox);
      }
+     public void selectSearchBtn() throws InterruptedException{
+          this.clickear(searchBar);
+          Thread.sleep(1000);
+     }
+
 }
