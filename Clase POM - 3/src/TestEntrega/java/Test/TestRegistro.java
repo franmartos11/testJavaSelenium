@@ -1,11 +1,8 @@
 package Test;
 
 import Pages.RegisterPage;
-import Reportes.ExtentFactory;
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -18,77 +15,55 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestRegistro {
-    public WebDriver driver;
-    public WebDriverWait wait;
-    ExtentSparkReporter info = new ExtentSparkReporter("target/REPORTES.html");
-    ExtentReports extent;
+    @BeforeAll
+    public static void crearReporte() {
+            extent = ExtentFactory.getInstance();
+            extent.attachReporter(info);
+            }
 
     @BeforeEach
     public void setUp() throws InterruptedException {
-        extent = ExtentFactory.getInstance();
-        extent.attachReporter(info);
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofMillis(2000));
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.setup();
-        registerPage.url("http://testing.ctd.academy/");
-    }
-
+            driver = new ChromeDriver();
+            wait = new WebDriverWait(driver, Duration.ofMillis(2000));
+            RegisterPage registerPage = new RegisterPage(driver, wait);
+            registerPage.setup();
+            registerPage.url("https://opencart.abstracta.us/index.php?route=common/home");
+            }
     @Test
-    @Tag("REGISTRO")
-    public void RegistroExitoso() throws InterruptedException {
-        ExtentTest test = extent.createTest("Registro Exitoso");
+    @tag("Seleccion Registro")
+    public void succesOnSelectingRegister() throws InterruptedException {
+        ExtentTest test = extent.createTest("Seleccion de registro exitosa");
         test.log(Status.INFO, "Comienza el Test");
-        RegisterPage registerPage = new RegisterPage(driver, wait);
+        HomePage homePage = new HomePage(driver, wait);
 
-        registerPage.clickCrearCuenta();
-        test.log(Status.PASS, "Ingreso en el formulario de Registro");
+        homePage.clickBtnMiCuenta();
+        test.log(Status.PASS, "Seleccion de cuenta exitosa");
 
-        registerPage.escribirNombre("Sergio");
-        registerPage.escribirApellido("Pace");
-        registerPage.escribirCorreo("prueba00004@gmail.com");
-        registerPage.escribirContraseña("123456");
-        registerPage.escribirRepetirContraseña("123456");
-        test.log(Status.PASS, "Ingreso todos los datos del Registro");
-
-        registerPage.clickRegistrarse();
-        String mensajeCorrecto = registerPage.cuentaCreadaGracias();
-        assertTrue(mensajeCorrecto.equals("¡Cuenta registrada con éxito!"));
-
-        String mensajeCorrecto2 = registerPage.cuentaCreadaExito();
-        assertTrue(mensajeCorrecto2.equals("Te enviamos un email para confirmar tu cuenta"));
-        test.log(Status.PASS, "Validación de Registro Exitoso");
+        homePage.clickBtnRegister();
+        test.log(Status.PASS, "Ingresar a seccion de registro");
     }
-
     @Test
-    @Tag("REGISTRO")
-    public void RegistroFallidoMailRepetido() throws InterruptedException {
-        ExtentTest test = extent.createTest("Registro Fallido por correo ya usado");
-        test.log(Status.INFO, "Comienza el Test");
-        RegisterPage registerPage = new RegisterPage(driver, wait);
+    @tag("Ingreso Datos Registro")
+    public void succesfullRegister() throws InterruptedException {
+            ExtentTest test = extent.createTest("Ingreso de datos de registro exitoso");
+            test.log(Status.INFO, "Comienza el Test");
+            RegisterPage registerPage = new RegisterPage(driver, wait);
 
-        registerPage.clickCrearCuenta();
-        test.log(Status.PASS, "Ingreso en el formulario de Registro");
+            homePage.clickBtnMiCuenta();
+            test.log(Status.PASS, "Seleccion de cuenta exitosa");
 
-        registerPage.escribirNombre("Sergio");
-        registerPage.escribirApellido("Pace");
-        registerPage.escribirCorreo("prueba00004@gmail.com");
-        registerPage.escribirContraseña("123456");
-        registerPage.escribirRepetirContraseña("123456");
-        test.log(Status.PASS, "Ingreso todos los datos del Registro");
+            homePage.clickBtnRegister();
+            test.log(Status.PASS, "Ingresar a seccion de registro");
+            }
 
-        registerPage.clickRegistrarse();
-        String mensajeCorrecto = registerPage.cuentaCreadaGracias();
-        assertTrue(mensajeCorrecto.equals("¡Cuenta registrada con éxito!"));
 
-        test.log(Status.PASS, "Validación de Registro Exitoso");
-    }
 
-    @AfterEach
-    public void cerrar() {
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.close();
-        extent.flush();
-    }
-}
+
+
+
+
+
+
+
+
+
